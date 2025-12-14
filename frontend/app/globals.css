@@ -1,0 +1,381 @@
+@import "tailwindcss";
+
+:root {
+  /* Luxury Gold Palette - Inspired by Black Cards & High-End Brands */
+  --color-gold-50: #fefce8;
+  --color-gold-100: #fef9c3;
+  --color-gold-200: #fef08a;
+  --color-gold-300: #fde047;
+  --color-gold-400: #facc15;
+  --color-gold-500: #eab308;
+  --color-gold-600: #ca8a04;
+  --color-gold-700: #a16207;
+  --color-gold-800: #854d0e;
+  --color-gold-900: #713f12;
+
+  /* Premium Black Palette */
+  --color-black-50: #18181b;
+  --color-black-100: #27272a;
+  --color-black-200: #3f3f46;
+  --color-black-300: #52525b;
+  --color-black-400: #71717a;
+  --color-black-500: #a1a1aa;
+  --color-black-600: #d4d4d8;
+  --color-black-700: #e4e4e7;
+  --color-black-800: #f4f4f5;
+  --color-black-900: #fafafa;
+
+  /* Accent Colors */
+  --color-accent-gold: #d4af37;      /* Classic gold */
+  --color-accent-rose-gold: #b76e79; /* Rose gold accent */
+  --color-accent-platinum: #e5e4e2;  /* Platinum accent */
+
+  /* Semantic Colors - Luxury Edition */
+  --color-success: #059669;  /* Emerald green */
+  --color-warning: #d97706;  /* Amber */
+  --color-error: #dc2626;    /* Red */
+  --color-info: #0891b2;     /* Cyan */
+
+  /* Background & Foreground - Dark Mode First */
+  --background: #09090b;           /* Deep black */
+  --background-elevated: #18181b;  /* Elevated surfaces */
+  --background-card: #1c1c1f;      /* Card background */
+  --foreground: #fafafa;           /* Light text */
+  --foreground-muted: #a1a1aa;     /* Muted text */
+  
+  /* Borders & Dividers */
+  --border-color: #27272a;
+  --border-color-gold: rgba(212, 175, 55, 0.2);
+  
+  /* Shadows - Luxury depth */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -2px rgba(0, 0, 0, 0.3);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 0, 0, 0.3);
+  --shadow-gold: 0 0 20px rgba(212, 175, 55, 0.3);
+}
+
+@theme inline {
+  /* Color Palette */
+  --color-primary-*: initial;
+  --color-neutral-*: initial;
+  --color-success: initial;
+  --color-warning: initial;
+  --color-error: initial;
+  --color-info: initial;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  /* Typography */
+  --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+  /* Font Sizes for Timer (48-64px) */
+  --font-size-timer-sm: 3rem;    /* 48px */
+  --font-size-timer-md: 3.5rem;  /* 56px */
+  --font-size-timer-lg: 4rem;    /* 64px */
+
+  /* Animation Durations */
+  --duration-fade: 300ms;
+  --duration-slide: 200ms;
+  --duration-flip: 400ms;
+
+  /* Responsive Breakpoints */
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 1024px;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    /* Light mode - Still maintaining luxury feel */
+    --background: #fafafa;
+    --background-elevated: #ffffff;
+    --background-card: #ffffff;
+    --foreground: #09090b;
+    --foreground-muted: #52525b;
+    --border-color: #e4e4e7;
+    --border-color-gold: rgba(212, 175, 55, 0.3);
+    
+    /* Lighter shadows for light mode */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    --shadow-gold: 0 0 20px rgba(212, 175, 55, 0.2);
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ===== Luxury UI Components ===== */
+
+/* Premium Card Style */
+.luxury-card {
+  background: var(--background-card);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-lg);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.luxury-card:hover {
+  border-color: var(--border-color-gold);
+  box-shadow: var(--shadow-xl), var(--shadow-gold);
+  transform: translateY(-2px);
+}
+
+/* Gold Accent Elements */
+.gold-accent {
+  color: var(--color-accent-gold);
+  text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+}
+
+.gold-border {
+  border-color: var(--color-accent-gold);
+}
+
+.gold-gradient {
+  background: linear-gradient(135deg, #d4af37 0%, #f9d77e 50%, #d4af37 100%);
+  background-size: 200% 200%;
+  animation: goldShimmer 3s ease infinite;
+}
+
+@keyframes goldShimmer {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* Premium Button Styles */
+.btn-luxury {
+  background: linear-gradient(135deg, var(--color-gold-600) 0%, var(--color-gold-500) 100%);
+  color: var(--color-black-50);
+  font-weight: 600;
+  letter-spacing: 0.025em;
+  box-shadow: var(--shadow-md), 0 0 15px rgba(212, 175, 55, 0.3);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-luxury:hover {
+  box-shadow: var(--shadow-lg), 0 0 25px rgba(212, 175, 55, 0.5);
+  transform: translateY(-1px);
+}
+
+.btn-luxury:active {
+  transform: translateY(0);
+}
+
+/* Premium Text Styles */
+.text-luxury {
+  background: linear-gradient(135deg, #d4af37 0%, #f9d77e 50%, #d4af37 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 200% 200%;
+  animation: goldShimmer 3s ease infinite;
+}
+
+/* Elevated Surface */
+.surface-elevated {
+  background: var(--background-elevated);
+  border-bottom: 1px solid var(--border-color);
+}
+
+/* ===== Animation Utility Classes ===== */
+
+/* Fade Animation (300ms) - For phase transitions */
+.fade-enter {
+  animation: fadeIn var(--duration-fade) ease-in-out;
+}
+
+.fade-exit {
+  animation: fadeOut var(--duration-fade) ease-in-out;
+}
+
+/* Slide Animation (200ms) - For tab switching */
+.slide-enter-left {
+  animation: slideInFromLeft var(--duration-slide) ease-in-out;
+}
+
+.slide-enter-right {
+  animation: slideInFromRight var(--duration-slide) ease-in-out;
+}
+
+.slide-exit-left {
+  animation: slideOutToLeft var(--duration-slide) ease-in-out;
+}
+
+.slide-exit-right {
+  animation: slideOutToRight var(--duration-slide) ease-in-out;
+}
+
+/* 3D Flip Animation (400ms) - For flashcards */
+.flip-card {
+  transition: transform var(--duration-flip) ease-in-out;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform var(--duration-flip) ease-in-out;
+  transform-style: preserve-3d;
+}
+
+.flip-card.flipped .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front,
+.flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.flip-card-back {
+  transform: rotateY(180deg);
+}
+
+/* ===== Keyframe Animations ===== */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes slideInFromLeft {
+  from {
+    transform: translateX(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInFromRight {
+  from {
+    transform: translateX(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOutToLeft {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(-20px);
+    opacity: 0;
+  }
+}
+
+@keyframes slideOutToRight {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(20px);
+    opacity: 0;
+  }
+}
+
+/* ===== Responsive Design Utilities ===== */
+
+/* Mobile-first approach with breakpoints */
+/* Small devices: < 640px (default) */
+/* Medium devices: 640px - 1024px */
+/* Large devices: > 1024px */
+
+/* Ensure smooth transitions on all screen sizes */
+* {
+  transition-property: background-color, border-color, color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+/* Responsive container padding */
+.responsive-container {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@media (min-width: 640px) {
+  .responsive-container {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .responsive-container {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+/* Responsive text sizing */
+.responsive-heading {
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+
+@media (min-width: 640px) {
+  .responsive-heading {
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .responsive-heading {
+    font-size: 2.25rem;
+    line-height: 2.5rem;
+  }
+}
+
+/* Responsive card spacing */
+.responsive-card {
+  padding: 1rem;
+}
+
+@media (min-width: 640px) {
+  .responsive-card {
+    padding: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .responsive-card {
+    padding: 2rem;
+  }
+}
