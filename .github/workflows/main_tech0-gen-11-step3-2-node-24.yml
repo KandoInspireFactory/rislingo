@@ -44,10 +44,13 @@ jobs:
       - name: Prepare deployment package
         run: |
           mkdir -p deployment_package
-          cp -r frontend/.next deployment_package/
+          cp -r frontend/build deployment_package/
           cp -r frontend/public deployment_package/
           cp frontend/package.json deployment_package/
           cp -r frontend/node_modules deployment_package/
+          
+          echo "Listing deployment package content:"
+          ls -la deployment_package/
 
       - name: Upload artifact for deployment jobs
         uses: actions/upload-artifact@v4
