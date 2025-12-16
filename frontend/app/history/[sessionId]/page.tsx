@@ -99,7 +99,7 @@ export default function SessionDetailPage() {
             <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
               <div className="bg-gray-50 rounded-lg p-4">
                 <div className="text-sm text-gray-600 mb-1">総合スコア</div>
-                <div className={`text-3xl font-bold ${getScoreColor(session.overall_score)}`}>
+                <div className={`text-3xl font-bold ${getScoreColor(session.overall_score ?? 0)}`}>
                   {session.overall_score}/4
                 </div>
               </div>
