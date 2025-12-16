@@ -37,20 +37,25 @@ jobs:
         working-directory: frontend
         run: npm run build
 
-      - name: Remove dev dependencies
-        working-directory: frontend
-        run: npm prune --production
-
       - name: Prepare deployment package
         run: |
           mkdir -p deployment_package
-          cp -r frontend/build deployment_package/
-          cp -r frontend/public deployment_package/
-          cp frontend/package.json deployment_package/
-          cp -r frontend/node_modules deployment_package/
+          
+          # Copy standalone build (includes server.js and minimal node_modules)
+          cp -r frontend/build/standalone/* deployment_package/
+          
+          # Copy static files to the correct location within standalone structure
+          # Since we use distDir: 'build', server.js expects assets in 'build/static'
+          mkdir -p deployment_package/build/static
+          cp -r frontend/build/static/* deployment_package/build/static/
+          
+          # Copy public files
+          mkdir -p deployment_package/public
+          cp -r frontend/public/* deployment_package/public/
           
           echo "Listing deployment package content:"
           ls -la deployment_package/
+          ls -la deployment_package/build/ || echo "build dir not found"
 
       - name: Upload artifact for deployment jobs
         uses: actions/upload-artifact@v4
