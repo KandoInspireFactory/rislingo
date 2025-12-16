@@ -106,7 +106,7 @@ export default function SessionDetailPage() {
               {session.delivery_score !== null && (
                 <div className="bg-gray-50 rounded-lg p-4">
                   <div className="text-sm text-gray-600 mb-1">Delivery</div>
-                  <div className={`text-2xl font-semibold ${getScoreColor(session.delivery_score)}`}>
+                  <div className={`text-2xl font-semibold ${getScoreColor(session.delivery_score ?? 0)}`}>
                     {session.delivery_score}/4
                   </div>
                 </div>
@@ -114,7 +114,7 @@ export default function SessionDetailPage() {
               {session.language_use_score !== null && (
                 <div className="bg-gray-50 rounded-lg p-4">
                   <div className="text-sm text-gray-600 mb-1">Language Use</div>
-                  <div className={`text-2xl font-semibold ${getScoreColor(session.language_use_score)}`}>
+                  <div className={`text-2xl font-semibold ${getScoreColor(session.language_use_score ?? 0)}`}>
                     {session.language_use_score}/4
                   </div>
                 </div>
@@ -122,7 +122,7 @@ export default function SessionDetailPage() {
               {session.topic_dev_score !== null && (
                 <div className="bg-gray-50 rounded-lg p-4">
                   <div className="text-sm text-gray-600 mb-1">Topic Dev.</div>
-                  <div className={`text-2xl font-semibold ${getScoreColor(session.topic_dev_score)}`}>
+                  <div className={`text-2xl font-semibold ${getScoreColor(session.topic_dev_score ?? 0)}`}>
                     {session.topic_dev_score}/4
                   </div>
                 </div>

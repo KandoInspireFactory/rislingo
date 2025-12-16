@@ -63,11 +63,26 @@ export interface SessionDetailResponse {
   id: string;
   task_type: string;
   created_at: string;
-  problem: Problem; // Problemインターフェースを使用
-  scoring_result: ScoringResponse; // ScoringResponseインターフェースを使用
+  problem: Problem;
+  scoring_result: ScoringResponse;
   user_transcript: string;
   audio_url: string;
   overall_score?: number | null;
+  delivery_score?: number | null;
+  language_use_score?: number | null;
+  topic_development_score?: number | null;
+  topic_dev_score?: number | null; // Alias for compatibility
+  // Flat properties for UI convenience
+  reading_text?: string;
+  lecture_script?: string;
+  question?: string;
+  model_answer?: string;
+  feedback?: {
+    delivery?: { score: number; feedback: string };
+    language_use?: { score: number; feedback: string };
+    topic_development?: { score: number; feedback: string };
+    improvement_tips?: string[];
+  };
 }
 
 export interface SavedPhrase {
