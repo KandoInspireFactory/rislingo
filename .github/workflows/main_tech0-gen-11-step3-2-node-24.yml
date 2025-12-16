@@ -37,29 +37,20 @@ jobs:
         working-directory: frontend
         run: npm run build
                 
-      - name: Prepare deployment package
+      - name: Prepare standalone build
         run: |
-          mkdir -p deployment_package
-          # Explicitly copy standalone contents to include hidden .next folder
-          cp -r frontend/.next/standalone/.next deployment_package/
-          cp frontend/.next/standalone/server.js deployment_package/
-          cp frontend/.next/standalone/package.json deployment_package/
-          # Copy node_modules (symlinked or copied by Next.js)
-          cp -r frontend/.next/standalone/node_modules deployment_package/
+          # Copy public files to standalone directory
+          cp -r frontend/public frontend/.next/standalone/
           
-          # Copy static files (required for standalone)
-          mkdir -p deployment_package/.next/static
-          cp -r frontend/.next/static/* deployment_package/.next/static/
-          
-          # Copy public files
-          mkdir -p deployment_package/public
-          cp -r frontend/public/* deployment_package/public/
+          # Copy static files to standalone directory
+          mkdir -p frontend/.next/standalone/.next/static
+          cp -r frontend/.next/static/* frontend/.next/standalone/.next/static/
 
       - name: Upload artifact for deployment jobs
         uses: actions/upload-artifact@v4
         with:
           name: node-app
-          path: deployment_package/
+          path: frontend/.next/standalone/
 
   deploy:
     runs-on: ubuntu-latest
