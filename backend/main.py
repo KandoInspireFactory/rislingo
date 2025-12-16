@@ -29,8 +29,8 @@ from exceptions import TOEFLAppException
 load_dotenv()
 
 # Verify critical environment variables
-if not os.getenv("OPENAI_API_KEY"):
-    raise ValueError("OPENAI_API_KEY environment variable is required")
+if not os.getenv("OPENAI_API_KEY") and not os.getenv("AZURE_OPENAI_API_KEY"):
+    raise ValueError("OPENAI_API_KEY or AZURE_OPENAI_API_KEY environment variable is required")
 
 app = FastAPI(
     title="TOEFL Speaking Master API",
