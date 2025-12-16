@@ -59,6 +59,16 @@ export interface PracticeSessionSummary {
   question?: string;
 }
 
+export interface SessionDetailResponse {
+  id: string;
+  task_type: string;
+  created_at: string;
+  problem: Problem; // Problemインターフェースを使用
+  scoring_result: ScoringResponse; // ScoringResponseインターフェースを使用
+  user_transcript: string;
+  audio_url: string;
+}
+
 export interface SavedPhrase {
   id: string;
   phrase: string;
