@@ -40,11 +40,17 @@ jobs:
       - name: Prepare deployment package
         run: |
           mkdir -p deployment_package
-          # Copy standalone build
-          cp -r frontend/.next/standalone/* deployment_package/
+          # Explicitly copy standalone contents to include hidden .next folder
+          cp -r frontend/.next/standalone/.next deployment_package/
+          cp frontend/.next/standalone/server.js deployment_package/
+          cp frontend/.next/standalone/package.json deployment_package/
+          # Copy node_modules (symlinked or copied by Next.js)
+          cp -r frontend/.next/standalone/node_modules deployment_package/
+          
           # Copy static files (required for standalone)
           mkdir -p deployment_package/.next/static
           cp -r frontend/.next/static/* deployment_package/.next/static/
+          
           # Copy public files
           mkdir -p deployment_package/public
           cp -r frontend/public/* deployment_package/public/
