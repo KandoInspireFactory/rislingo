@@ -69,4 +69,3 @@ jobs:
           app-name: 'tech0-gen-11-step3-2-py-24'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_01EDC1DF21E94777B378389FC4772CE5 }}
-          startup-command: 'gunicorn --bind 0.0.0.0:8000 --worker-class uvicorn.workers.UvicornWorker --workers 4 --timeout 600 main:app'
