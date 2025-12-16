@@ -67,6 +67,7 @@ export interface SessionDetailResponse {
   scoring_result: ScoringResponse; // ScoringResponseインターフェースを使用
   user_transcript: string;
   audio_url: string;
+  overall_score?: number | null;
 }
 
 export interface SavedPhrase {
