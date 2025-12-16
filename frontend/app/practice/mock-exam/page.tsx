@@ -2,7 +2,8 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { isAuthenticated } from '@/lib/auth';
+import { isAuthenticated, getUserIdentifier } from '@/lib/auth';
+import { generateProblem } from '@/lib/api-client';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import BackButton from '@/components/BackButton';
 
@@ -44,9 +45,6 @@ export default function MockExamPage() {
     setExamState(prev => ({ ...prev, isGenerating: true }));
     
     try {
-      const { generateProblem } = await import('@/lib/api-client');
-      const { getUserIdentifier } = await import('@/lib/auth');
-
       const userIdentifier = getUserIdentifier();
       if (!userIdentifier) {
         throw new Error('ログインが必要です。');
