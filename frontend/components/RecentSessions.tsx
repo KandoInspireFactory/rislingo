@@ -45,8 +45,8 @@ export default function RecentSessions({ sessions, isLoading = false }: RecentSe
       <div className="divide-y divide-gray-200">
         {sessions.map((session) => (
           <div
-            key={session.session_id}
-            onClick={() => handleSessionClick(session.session_id)}
+            key={session.id}
+            onClick={() => handleSessionClick(session.id)}
             className="p-6 hover:bg-gray-50 transition-colors cursor-pointer"
           >
             <div className="flex items-center justify-between">
@@ -62,7 +62,7 @@ export default function RecentSessions({ sessions, isLoading = false }: RecentSe
                 {session.overall_score !== null && (
                   <div className="flex items-center gap-2">
                     <span className="text-sm text-gray-600">総合スコア:</span>
-                    <span className={`text-lg font-semibold ${getScoreColor(session.overall_score)}`}>
+                    <span className={`text-lg font-semibold ${getScoreColor(session.overall_score ?? 0)}`}>
                       {session.overall_score}/4
                     </span>
                   </div>

@@ -104,11 +104,11 @@ export default function Task1QuestionCard({
               <div className="text-center mb-6">
                 <div className="flex items-center justify-center gap-4 mb-4">
                   <div className="text-center">
-                    <div className={`text-3xl font-bold ${getScoreColor(question.overall_score)}`}>
+                    <div className={`text-3xl font-bold ${getScoreColor(question.overall_score ?? 0)}`}>
                       {question.overall_score !== undefined ? `${question.overall_score}/4` : '未採点'}
                     </div>
-                    <div className={`text-sm font-medium ${getScoreColor(question.overall_score)}`}>
-                      {getScoreLabel(question.overall_score)}
+                    <div className={`text-sm font-medium ${getScoreColor(question.overall_score ?? 0)}`}>
+                      Overall Score
                     </div>
                   </div>
                 </div>

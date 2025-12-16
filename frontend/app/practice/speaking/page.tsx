@@ -97,8 +97,8 @@ function SpeakingPhaseContent() {
             scoringResult = await evaluateResponse({
               problem_id: problem.problem_id,
               transcript: transcript,
-              reading_text: problem.reading_text,
-              lecture_script: problem.lecture_script,
+              reading_text: problem.reading_text ?? '',
+              lecture_script: problem.lecture_script ?? '',
             });
           }
           

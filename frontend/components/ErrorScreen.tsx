@@ -79,7 +79,7 @@ export default function ErrorScreen({
   } else if (error instanceof APIError) {
     errorMessage = error.userMessage;
     errorType = 'generic';
-    errorDetails = error.details;
+    errorDetails = error.details as Record<string, unknown> | undefined;
   } else if (error instanceof Error) {
     errorMessage = error.message;
     errorType = 'generic';

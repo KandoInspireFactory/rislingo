@@ -391,7 +391,7 @@ function ListeningPhaseContent() {
           {/* Hidden Audio Element */}
           <audio
             ref={audioRef}
-            src={getAudioUrl(problem.lecture_audio_url)}
+            src={getAudioUrl(problem.lecture_audio_url ?? '')}
             preload="auto"
           />
         </div>
