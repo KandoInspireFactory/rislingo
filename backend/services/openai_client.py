@@ -6,7 +6,7 @@ import os
 import json
 import logging
 from typing import Optional, List, Dict, Any
-from openai import AsyncOpenAI, OpenAIError, RateLimitError, APIError, APITimeoutError
+from openai import AsyncOpenAI, AsyncAzureOpenAI, OpenAIError, RateLimitError, APIError, APITimeoutError
 from tenacity import (
     retry,
     stop_after_attempt,
@@ -31,33 +31,57 @@ class OpenAIClient:
     - GPT-4 for problem generation, scoring, and model answers
     - Whisper for speech-to-text transcription
     - TTS for text-to-speech audio generation
+    - Azure OpenAI Service integration
     """
     
     def __init__(self, api_key: Optional[str] = None, timeout: int = 30):
         """
-        Initialize OpenAI client.
+        Initialize OpenAI client (Azure or Standard).
         
         Args:
             api_key: OpenAI API key (defaults to OPENAI_API_KEY env var)
             timeout: Request timeout in seconds (default: 30)
         """
-        self.api_key = api_key or os.getenv("OPENAI_API_KEY")
-        if not self.api_key:
-            raise ValueError("OpenAI API key is required. Set OPENAI_API_KEY environment variable.")
-        
         self.timeout = timeout
-        self.client = AsyncOpenAI(
-            api_key=self.api_key,
-            timeout=timeout
-        )
         
-        # Model configurations
-        self.gpt4_model = "gpt-4"
-        self.whisper_model = "whisper-1"
-        self.tts_model = "tts-1"
-        self.tts_voice = "alloy"
+        # Check for Azure configuration
+        self.azure_api_key = os.getenv("AZURE_OPENAI_API_KEY")
+        self.azure_endpoint = os.getenv("AZURE_OPENAI_ENDPOINT")
+        self.azure_api_version = os.getenv("AZURE_API_VERSION", "2024-02-15-preview")
         
-        logger.info("OpenAI client initialized successfully")
+        if self.azure_api_key and self.azure_endpoint:
+            self.is_azure = True
+            logger.info("Initializing Azure OpenAI Client")
+            self.client = AsyncAzureOpenAI(
+                api_key=self.azure_api_key,
+                api_version=self.azure_api_version,
+                azure_endpoint=self.azure_endpoint,
+                timeout=timeout
+            )
+            # Azure Deployment Names (model parameter in client calls maps to deployment name)
+            self.gpt4_model = os.getenv("AZURE_GPT_DEPLOYMENT", "gpt-4")
+            self.whisper_model = os.getenv("AZURE_WHISPER_DEPLOYMENT", "whisper") 
+            self.tts_model = os.getenv("AZURE_TTS_DEPLOYMENT", "tts")
+            self.tts_voice = "alloy" # Azure TTS voices generally match OpenAI names
+        else:
+            self.is_azure = False
+            self.api_key = api_key or os.getenv("OPENAI_API_KEY")
+            if not self.api_key:
+                raise ValueError("OpenAI API key is required. Set OPENAI_API_KEY or AZURE_OPENAI_API_KEY environment variable.")
+            
+            logger.info("Initializing Standard OpenAI Client")
+            self.client = AsyncOpenAI(
+                api_key=self.api_key,
+                timeout=timeout
+            )
+            
+            # Model configurations
+            self.gpt4_model = "gpt-4"
+            self.whisper_model = "whisper-1"
+            self.tts_model = "tts-1"
+            self.tts_voice = "alloy"
+        
+        logger.info(f"OpenAI client initialized successfully (Azure: {self.is_azure})")
     
     @retry(
         stop=stop_after_attempt(3),
