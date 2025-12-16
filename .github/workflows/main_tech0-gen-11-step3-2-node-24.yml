@@ -39,12 +39,15 @@ jobs:
                 
       - name: Prepare deployment package
         run: |
-          mkdir deployment_package
-          cp -r frontend/.next/ deployment_package/
-          cp -r frontend/public/ deployment_package/ # Copy public assets
-          cp frontend/package.json deployment_package/
-          # Copy next.config.js if it exists and is needed
-          # cp frontend/next.config.js deployment_package/ || true
+          mkdir -p deployment_package
+          # Copy standalone build
+          cp -r frontend/.next/standalone/* deployment_package/
+          # Copy static files (required for standalone)
+          mkdir -p deployment_package/.next/static
+          cp -r frontend/.next/static/* deployment_package/.next/static/
+          # Copy public files
+          mkdir -p deployment_package/public
+          cp -r frontend/public/* deployment_package/public/
 
       - name: Upload artifact for deployment jobs
         uses: actions/upload-artifact@v4
@@ -69,4 +72,3 @@ jobs:
           app-name: 'tech0-gen-11-step3-2-node-24'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_D47ADA76AF4E4023AE6167381174D5E5 }}
-          startup-command: 'npm start' # Set startup command for Next.js
