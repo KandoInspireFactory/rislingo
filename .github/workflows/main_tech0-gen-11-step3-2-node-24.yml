@@ -36,21 +36,24 @@ jobs:
       - name: Build Next.js application
         working-directory: frontend
         run: npm run build
-                
-      - name: Prepare standalone build
+
+      - name: Remove dev dependencies
+        working-directory: frontend
+        run: npm prune --production
+
+      - name: Prepare deployment package
         run: |
-          # Copy public files to standalone directory
-          cp -r frontend/public frontend/.next/standalone/
-          
-          # Copy static files to standalone directory
-          mkdir -p frontend/.next/standalone/.next/static
-          cp -r frontend/.next/static/* frontend/.next/standalone/.next/static/
+          mkdir -p deployment_package
+          cp -r frontend/.next deployment_package/
+          cp -r frontend/public deployment_package/
+          cp frontend/package.json deployment_package/
+          cp -r frontend/node_modules deployment_package/
 
       - name: Upload artifact for deployment jobs
         uses: actions/upload-artifact@v4
         with:
           name: node-app
-          path: frontend/.next/standalone/
+          path: deployment_package/
 
   deploy:
     runs-on: ubuntu-latest
