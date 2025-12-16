@@ -30,7 +30,7 @@ export default function ErrorDemoPage() {
     { name: 'Server Error', error: new ServerError() },
     { name: 'Validation Error', error: new ValidationError('入力データが正しくありません。', { validation_errors: [{ field: 'email', message: 'Invalid email format' }] }) },
     { name: 'Recording Error', error: new RecordingError('マイクへのアクセスが拒否されました。') },
-    { name: 'Generic API Error', error: new APIError('Something went wrong', 'GENERIC_ERROR', 'エラーが発生しました。') },
+    { name: 'Generic API Error', error: new APIError('Something went wrong', 'GENERIC_ERROR') },
   ];
 
   const handleRetry = () => {
